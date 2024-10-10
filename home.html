@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Technie - Discover. Learn. Innovate.</title>
+    <style>
+      /* Reset and Basic Styling */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: #f0f0f3;
+        transition: background 0.3s, color 0.3s;
+      }
+
+      /* Light and Dark Mode */
+      body.dark-mode {
+        background: #1a1a1a;
+        color: #e0e0e0;
+      }
+
+      .dark-mode header,
+      .dark-mode .banner,
+      .dark-mode .about,
+      .dark-mode .projects,
+      .dark-mode .contact {
+        background: #333;
+        color: #e0e0e0;
+      }
+
+      .dark-mode .btn {
+        background: #b39242;
+        color: #000;
+      }
+
+      /* Header Styling */
+      header {
+        background: linear-gradient(135deg, #b39242, #000);
+        color: #fff;
+        padding: 1rem;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+      }
+
+      header h1 {
+        font-size: 2rem;
+        font-weight: bold;
+        animation: fadeIn 2s ease;
+      }
+
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: 500;
+        font-size: 1.1rem;
+      }
+
+      nav a:hover {
+        text-decoration: underline;
+      }
+
+      /* Custom Light/Dark Mode Toggle */
+      .mode-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 80px;
+        height: 30px;
+        background: #ddd;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        transition: background 0.3s;
+        z-index: 1100;
+      }
+
+      .mode-toggle .toggle-circle {
+        width: 25px;
+        height: 25px;
+        background: #fff;
+        border-radius: 50%;
+        transition: transform 0.3s;
+      }
+
+      .dark-mode .mode-toggle {
+        background: #444;
+      }
+
+      .dark-mode .toggle-circle {
+        transform: translateX(45px); /* Move circle to the right */
+      }
+
+      .dark-mode .mode-text {
+        color: #fff;
+      }
+
+      .dark-mode .mode-text {
+        transform: translateX(-24px); /* Move text to the left in dark mode */
+      }
+      .mode-text.light {
+        transform: translateX(10px); /* Adjust position for light mode */
+      }
+
+      .mode-text {
+        margin-left: 8px;
+        font-size: 12px;
+        color: #555;
+      }
+      #about,
+      #projects,
+      #contact {
+        scroll-margin-top: 80px; /* Default for desktops */
+      }
+
+      @media (max-width: 768px) {
+        #about,
+        #projects,
+        #contact {
+          scroll-margin-top: 100px; /* Increase offset for tablets */
+        }
+      }
+
+      @media (max-width: 480px) {
+        #about,
+        #projects,
+        #contact {
+          scroll-margin-top: 120px; /* Further increase for mobile screens */
+        }
+      }
+
+      /* Scroll Button */
+      .scroll-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 0.6rem;
+        background: none;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1.5rem;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+        z-index: 1100;
+        transition: background 0.3s;
+      }
+
+      .scroll-btn.show {
+        display: flex;
+      }
+
+      .scroll-btn:hover {
+        background: #b39242;
+      }
+
+      /* Banner Section */
+      .banner {
+        background: linear-gradient(135deg, #b39242, #000);
+        color: #fff;
+        padding: 5rem 1rem 3rem;
+        text-align: center;
+        animation: fadeIn 1.5s ease;
+        margin-top: 1rem;
+      }
+
+      .banner h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+      }
+
+      .banner p {
+        font-size: 1.2rem;
+        margin: 1rem 0;
+      }
+
+      .btn {
+        background: #fff;
+        color: #b39242;
+        padding: 0.7rem 1.5rem;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+
+      .btn:hover {
+        background: #b39242;
+        color: #fff;
+      }
+
+      /* About Section */
+      .about {
+        padding: 4rem 1rem;
+        text-align: center;
+        background: #fff;
+        margin: 2rem 0;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        animation: fadeInUp 2s ease;
+      }
+
+      .about h2 {
+        font-size: 2rem;
+        color: #b39242;
+        font-weight: bold;
+      }
+
+      .about p {
+        font-size: 1.1rem;
+        margin-top: 1rem;
+        text-align: justify;
+        color: #555;
+      }
+      .dark-mode .about p {
+        color: #cccccc; /* Softer light color for better readability */
+      }
+
+      /* Projects Section */
+      .projects {
+        padding: 4rem 1rem;
+        text-align: center;
+        background: #f4f4f4;
+      }
+
+      .projects h2 {
+        font-size: 2rem;
+        color: #b39242;
+        font-weight: bold;
+      }
+
+      .project-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+        animation: fadeInUp 2s ease;
+      }
+
+      .project-card {
+        background: #fff;
+        border: 1px solid #ddd;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .project-card:hover {
+        transform: scale(1.05);
+      }
+
+      .project-card h3 {
+        font-size: 1.5rem;
+        color: #b39242;
+      }
+
+      .project-card p {
+        font-size: 1rem;
+        margin: 0.5rem 0 1rem;
+        color: #555;
+      }
+
+      /* Contact Section */
+      .contact {
+        padding: 4rem 1rem;
+        text-align: center;
+        background: #fff;
+        margin: 2rem 0;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .contact h2 {
+        font-size: 2rem;
+        color: #b39242;
+        font-weight: bold;
+      }
+
+      .social-links a {
+        color: #b39242;
+        text-decoration: none;
+        margin: 0 10px;
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+      }
+
+      .social-links a:hover {
+        color: #000;
+      }
+
+      /* Animation Effects */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive Styling */
+      @media (max-width: 768px) {
+        header,
+        .banner,
+        .about,
+        .projects,
+        .contact {
+          padding: 2rem 1rem;
+        }
+
+        .banner h1 {
+          font-size: 2rem;
+        }
+
+        nav a {
+          margin: 0 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Light/Dark Mode Toggle Button -->
+    <div class="mode-toggle" onclick="toggleDarkMode()">
+      <div class="toggle-circle"></div>
+      <span class="mode-text">Light</span>
+    </div>
+
+    <!-- Scroll Up Button -->
+    <button
+      class="scroll-btn"
+      id="scrollBtn"
+      onclick="scrollToTop()"
+      aria-label="Scroll to Top"
+    >
+      🔝
+    </button>
+
+    <!-- Header -->
+    <header>
+      <h1>Technie</h1>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- Banner Section -->
+    <section class="banner">
+      <h1>Welcome to Technie – Your Guide to Tech Knowledge!</h1>
+      <p>
+        Educating aspiring tech enthusiasts on Technology with
+        Easy-to-Understand Insights.
+      </p>
+      <button
+        class="btn"
+        onclick="document.getElementById('about').scrollIntoView()"
+      >
+        Learn More
+      </button>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+      <h2>About Technie</h2>
+      <p>
+        Technie is a platform dedicated to making technology accessible and
+        engaging for college students and aspiring tech enthusiasts. We believe
+        that tech learning should be approachable, practical, and aligned with
+        real-world applications. Technie covers a wide array of topics aimed at
+        providing readers with a solid foundation and in-depth insights.
+      </p>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+      <h2>Our Projects and Blogs</h2>
+      <p>
+        Explore our hands-on projects and blogs that bring technology concepts
+        to life.
+      </p>
+
+      <div class="project-cards">
+        <div class="project-card">
+          <h3>Stake Calculator</h3>
+          <p style = "text-align: justify;">Developed for the convenience to easily split amount among two persons in accordance with the profits and money invested.</p>
+          <button class="btn" onclick="window.open('https://betting.technie.in', '_blank')">View Project</button>
+        </div>
+        <div class="project-card">
+          <h3>Grade Calculator</h3>
+          <p>Developed for the convenience of students to analyze their grades.</p>
+          <button class="btn" onclick="window.open('https://grade.technie.in', '_blank')">View Project</button>
+        </div>
+        <!-- More project cards can be added here -->
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+      <h2>Get in Touch</h2>
+      <p>Follow us on social media or reach out for inquiries.</p>
+      <div class="social-links">
+        <a href="https://instagram.com/technie.in" target="_blank">Instagram</a>
+        <a href="mailto:feedback.technie@gmail.com">Email</a>
+        <!-- <a href="#linkedin">LinkedIn</a>
+        <a href="#twitter">Twitter</a> -->
+      </div>
+    </section>
+
+    <script>
+      // Toggle Light/Dark Mode
+      function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+        const modeText = document.querySelector(".mode-text");
+        modeText.textContent = document.body.classList.contains("dark-mode")
+          ? "Dark"
+          : "Light";
+      }
+
+      // Scroll to Top Function
+      function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // Show Scroll Button on Scroll
+      window.onscroll = function () {
+        const scrollBtn = document.getElementById("scrollBtn");
+        if (
+          document.body.scrollTop > 200 ||
+          document.documentElement.scrollTop > 200
+        ) {
+          scrollBtn.classList.add("show");
+        } else {
+          scrollBtn.classList.remove("show");
+        }
+      };
+    </script>
+  </body>
+</html>
